@@ -1,0 +1,43 @@
+{% extends "project_specific/base_generic.html" %}
+
+
+{% block title %}
+{% load staticfiles %}
+<!-- <link rel='stylesheet' type='text/css' href="{% static 'project_specific/css/base.css'%}"> -->
+<title>Profile</title>
+{% endblock %}
+
+{% block sidebar %}	
+{% endblock %}
+
+{% block navbar %}
+
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+
+	{% for message in messages %}
+	<script>alert('{{ message }}')</script>
+
+    {% endfor %}
+
+{% endif %}
+
+{% if error %}
+	<div class="alert alert-danger">
+		<strong>{{ error|escape }}</strong>
+	</div>
+{% endif %}
+
+	
+	{{ dates|json_script:"shift_dates"}}
+
+
+{% endblock %}
+
+{% block javascript %}
+	{% load staticfiles %}
+	<!-- <script src="{% static 'project_specific/js/employeeVariable.js'%}"></script> -->
+	
+{% endblock %}
