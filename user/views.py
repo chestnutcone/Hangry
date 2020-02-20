@@ -1,21 +1,48 @@
 from django.shortcuts import render, redirect
-from .forms import SignUpForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, redirect
+from django.contrib.auth.hashers import make_password
+from user.models import CustomUser
 
 
 # Create your views here.
-def signup(request):
+def signup_view(request):
     if request.method == 'GET':
         # render form
         return render(request, 'registration/signup.html')
     elif request.method == 'POST':
-        form = SignUpForm(data=request.POST)
+        form = CustomUserCreationForm(data=request.POST)
         if form.is_valid():
-            error = form.create_user()
-            if error:
-                form = SignUpForm()
-                return render(request, 'registration/signup.html', {'form': form})
-            else:
-                return redirect('/users/login')
+            email = form.cleaned_data['email']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            password = form.cleaned_data['password2']
+            password = make_password(password)
+            print('form data', form.cleaned_data)
+
+            user, created = CustomUser.objects.get_or_create(username=email,
+                                                             first_name=first_name,
+                                                             last_name=last_name,
+                                                             password=password,
+                                                             )
+            return redirect('/users/login')
         else:
-            form = SignUpForm()
-            return render(request, 'registration/signup.html', {'form':form})
+            return render(request, 'registration/signup.html', {'form': form})
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        print('posting request here')
+        print(request.POST)
+        if form.is_valid():
+            print('login info', form.cleaned_data)
+            user = form.get_user()
+            login(request, user)
+            return redirect('/main/')
+        return render(request, 'registration/login.html', {'form': form})
+    elif request.method == 'GET':
+        form = AuthenticationForm()
+        return render(request, 'registration/login.html', {'form': form})
