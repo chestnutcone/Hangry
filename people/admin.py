@@ -1,6 +1,7 @@
 from django.contrib import admin
 from people.models import Employee
 
+
 # Register your models here.
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ('get_name', 'get_email', 'balance')

@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from user.models import CustomUser
+from django.urls import reverse
 
 
 # Create your views here.
@@ -20,7 +21,6 @@ def signup_view(request):
             last_name = form.cleaned_data['last_name']
             password = form.cleaned_data['password2']
             password = make_password(password)
-            print('form data', form.cleaned_data)
 
             user, created = CustomUser.objects.get_or_create(username=email,
                                                              first_name=first_name,
@@ -35,13 +35,10 @@ def signup_view(request):
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
-        print('posting request here')
-        print(request.POST)
         if form.is_valid():
-            print('login info', form.cleaned_data)
             user = form.get_user()
             login(request, user)
-            return redirect('/main/')
+            return redirect(reverse('main'))
         return render(request, 'registration/login.html', {'form': form})
     elif request.method == 'GET':
         form = AuthenticationForm()

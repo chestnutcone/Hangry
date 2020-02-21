@@ -4,16 +4,21 @@
     <list default="true" id="de227b92-f357-4ec0-9514-c75908185519" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/food_ordering/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_ordering/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/food_ordering/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_ordering/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/food_ordering/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_ordering/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/order/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/people/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/people/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/people/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/people/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_specific/templates/project_specific/base_generic.html" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/templates/project_specific/base_generic.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_specific/templates/project_specific/employee.html" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/templates/project_specific/employee.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_specific/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_specific/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/static/user/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/user/static/user/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/static/user/css/login.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/user/static/user/css/login.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/static/user/css/login.scss" beforeDir="false" afterPath="$PROJECT_DIR$/user/static/user/css/login.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/templates/registration/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/user/templates/registration/signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/models.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

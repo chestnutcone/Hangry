@@ -17,6 +17,13 @@ class Vendor(models.Model):
                                  null=True)
     address = models.CharField(max_length=30, unique=True)
 
+    def json_format(self):
+        return {'name': self.name,
+                'tel': self.tel,
+                'location': self.location.city,
+                'address': self.address,
+                'pk':self.pk}
+
     def __str__(self):
         return self.name
 
@@ -27,6 +34,12 @@ class Meal(models.Model):
                                on_delete=models.CASCADE,
                                null=True)
     price = models.FloatField(default=0)
+
+    def json_format(self):
+        return {'name': self.name,
+                'vendor': str(self.vendor),
+                'price': str(self.price),
+                'pk': self.pk}
 
     def __str__(self):
         return self.vendor.name+" "+self.name
