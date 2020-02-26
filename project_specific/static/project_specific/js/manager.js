@@ -167,16 +167,8 @@ function downloadPastOrders() {
             let ms = new Date(). getTime() + 86400000;
             endDate = parseDate(new Date(ms));
         }
-        window.open(`/main/manager/export_csv/${startDate}/${endDate}/`)
+        window.open(`/main/manager/export_order_history/${startDate}/${endDate}/`)
     }
-}
-
-function parseDate(date) {
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-    return `${year}-${month}-${day}`
-
 }
 
 function placeOrder() {

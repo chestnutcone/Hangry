@@ -30,3 +30,10 @@ function getCookie (name) {
 function formatTimestamp(timestamp) {
     return timestamp.slice(0,16)
 }
+
+function parseDate(date) {
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    return `${year}-${month}-${day}`
+}

@@ -1,0 +1,87 @@
+{% extends "project_specific/base_generic.html" %}
+
+
+{% block title %}
+{% load static %}
+<link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+<title>Profile</title>
+{% endblock %}
+
+{% block sidebar %}	
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/main/">Hangry</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/main/employee/history">History<span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/users/logout">Logout<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+
+	{% for message in messages %}
+	<script>alert('{{ message }}')</script>
+
+    {% endfor %}
+
+{% endif %}
+
+{% if error %}
+	<div class="alert alert-danger">
+		<strong>{{ error|escape }}</strong>
+	</div>
+{% endif %}
+
+<div class='row' style='margin-top: 30px'>
+  <div class='col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 offset-sm-1 offset-md-1 offset-lg-1 offset-xl-1'>
+    <h3>Past 30 days Transactions</h3>
+    <div class="ct-chart ct-perfect-fourth"></div>
+  </div>
+
+  <div class='col-12 col-sm-10 col-md-2 col-lg-4 col-xl-5'>
+    <div class='input-group mb-3'>
+      <label for="startDate">Start Date</label>
+      <input id='startDate' type="date" class='form-control'>
+  
+      <label for="endDate">End Date</label>
+      <input id='endDate' type="date" class='form-control'>
+  
+      <div class='input-group-append'>
+        <button class='btn btn-success' onclick="downloadPastTransactionHistory()">Download</button>
+      </div>
+    </div>
+  </div>
+    
+</div>
+
+{{ order_history|json_script:"order_history"}}
+{{ transaction_history|json_script:"transaction_history"}}
+
+{% endblock %}
+
+{% block javascript %}
+    {% load static %}
+    <script src="{% static 'project_specific/js/commonFunc.js'%}"></script>
+    <script src="{% static 'project_specific/js/employee_history.js'%}"></script>
+    
+	
+{% endblock %}

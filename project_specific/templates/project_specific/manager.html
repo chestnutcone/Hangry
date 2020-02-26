@@ -1,34 +1,9 @@
-{% extends "project_specific/base_generic.html" %}
+{% extends "project_specific/manager_base.html" %}
 
 
 {% block title %}
 {% load static %}
 <link rel='stylesheet' type='text/css' href="{% static 'project_specific/css/manager.css'%}">
-<title>Profile</title>
-{% endblock %}
-
-{% block sidebar %}	
-{% endblock %}
-
-{% block navbar %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/main/">Hangry</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/main/manager/people">People<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/users/logout">Logout<span class="sr-only">(current)</span></a>
-        </li>
-      </ul>
-
-    </div>
-  </nav>
 {% endblock %}
 
 {% block content %}
@@ -48,8 +23,8 @@
 {% endif %}
 
 <div class='row' style='margin-top: 30px'>
-    <div class='col-sm-6 col-md-auto col-lg-4 col-xl-3 offset-xl-1'>
-			<table class="table table-borderless table-striped table-hover table-responsive w-100 d-block">
+    <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3 offset-xl-1'>
+			<table class="table table-borderless table-striped table-hover">
 				<thead>
 					<tr>
 						<th>Vendor</th>
@@ -62,8 +37,8 @@
 			</table>
     </div>
 
-    <div class='col-sm-6 col-md-auto col-lg-3 col-xl-3'>
-			<table class="table table-hover table-responsive w-100 d-block">
+    <div class='col-sm-6 col-md-6 col-lg-3 col-xl-3'>
+			<table class="table table-hover">
 				<thead>
 					<tr>
             <th>Vendor</th>
@@ -75,8 +50,8 @@
 			</table>
     </div>
 
-    <div class='col-sm-10 col-md-auto col-lg-5 col-xl-5'>
-			<table class="table table-hover table-responsive w-100 d-block">
+    <div class='col-sm-10 col-md-12 col-lg-5 col-xl-4'>
+			<table class="table table-hover">
 				<thead>
 					<tr>
             <th>Vendor</th>
@@ -92,22 +67,30 @@
 </div>
 
 <div class='row'>
-  <div class='col-lg-10 col-xl-10 offset-lg-1 offset-xl-1'>
-    <div class='form-group form-inline'>
+  <div class='col-lg-12 col-xl-10 offset-xl-1'>
+    <div class='input-group mb-3'>
       <label for="startDate">Start Date</label>
       <input id='startDate' type="date" class='form-control'>
   
       <label for="endDate">End Date</label>
       <input id='endDate' type="date" class='form-control'>
 
-      <button class='btn btn-primary' onclick="queryPastOrders()">Find</button>
-      <button class='btn' onclick="queryTodayOrders()">Today</button>
-      <button class='btn btn-success' onclick="downloadPastOrders()">Download</button>
+      <div class='input-group-append'>
+        <button class='btn btn-primary' onclick="queryPastOrders()">Find</button>
+        <button class='btn' onclick="queryTodayOrders()">Today</button>
+        <button class='btn btn-success' onclick="downloadPastOrders()">Download</button>
+      </div>
     </div>
 
-    <button class='btn btn-success' onclick="placeOrder()">Order Confirm</button>
-    <input type="text" placeholder="Search..." class="form-control" onkeyup="searchTable(this, 'detailOrderInfo')"
-      id="search-bar">
+    <div class='input-group mb-3'>
+      <div class='input-group-prepend'>
+        <button class='btn btn-success' onclick="placeOrder()">Order Confirm</button>
+      </div>
+      
+      <input type="text" placeholder="Search..." class="form-control" onkeyup="searchTable(this, 'detailOrderInfo')"
+        id="search-bar">
+    </div>
+
     <div class='table-responsive'>
       <table class="table table-hover">
         <thead>
@@ -143,7 +126,7 @@
 
 {% block javascript %}
     {% load static %}
-    <script src="{% static 'project_specific/js/commonFunc.js'%}"></script>
+    <script src="{% static 'project_specific/js/commonFunc.js'%}"></script>   
     <script src="{% static 'project_specific/js/manager.js'%}"></script>
     
 	

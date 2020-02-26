@@ -1,12 +1,20 @@
 let order_history = JSON.parse(document.getElementById("order_history").textContent)
 let active_order = JSON.parse(document.getElementById("active_order").textContent)
 let vendors = JSON.parse(document.getElementById("vendors").textContent)
+let team = JSON.parse(document.getElementById("team").textContent)
+
+function populateTeamName() {
+    let team_header = document.getElementById('team_name')
+    team_header.innerText = `Team ${team}`
+}
 
 function populateActiveOrders() {
     let orderTable = document.getElementById("activeOrderTable")
 
     Array.from(active_order).forEach(element => {
         let row = document.createElement('tr')
+        row.setAttribute("data-order_pk", element['pk'])
+
         let checkbox_cell = document.createElement('td')
         let checkbox = document.createElement('input')
         checkbox.setAttribute('type', 'checkbox')
@@ -94,17 +102,31 @@ function orderMeal() {
     });
 }
 
-function taskActionButton() {
+function cancelOrder() {
+    let orders = $("#activeOrderTable input[type='checkbox']:checked")
+    let orders_pk = []
+    for (var i=0; i<orders.length; i++) {
+        orders_pk.push(orders[i].closest("tr").dataset.order_pk)
+    }
+    
+    let send_data = JSON.stringify({'orders_pk':orders_pk, 'action':'cancel_order'});
+    let csrftoken = getCookie('csrftoken');
+
+    $.ajax({
+        type: "POST",
+        data: send_data,
+        headers: {
+            'X-CSRFToken': csrftoken
+        },
+        dataType: 'json',
+        success: function(result) {
+            location.reload()
+        },
+        contentType:'application/json'
+    });
 
 }
 
-function saveChanges() {
-
-}
-
-function addTasks() {
-
-}
-
+populateTeamName();
 populateActiveOrders();
 populateVendors();

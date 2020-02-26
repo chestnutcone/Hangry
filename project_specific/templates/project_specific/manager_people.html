@@ -1,35 +1,4 @@
-{% extends "project_specific/base_generic.html" %}
-
-
-{% block title %}
-{% load static %}
-<!-- <link rel='stylesheet' type='text/css' href="{% static 'project_specific/css/manager.css'%}"> -->
-<title>Profile</title>
-{% endblock %}
-
-{% block sidebar %}	
-{% endblock %}
-
-{% block navbar %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/main/">Hangry</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/main/manager/people">People<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/users/logout">Logout<span class="sr-only">(current)</span></a>
-        </li>
-      </ul>
-
-    </div>
-  </nav>
-{% endblock %}
+{% extends "project_specific/manager_base.html" %}
 
 {% block content %}
 {% if messages %}
@@ -48,16 +17,54 @@
 {% endif %}
 
 <div class='row' style='margin-top: 30px'>
-  <div class='col'>
-    <button class='btn btn-success' onclick="addUserToTeam()">Add Users to Team</button>
-    <input type="text" placeholder="Search..." class="form-control" onkeyup="searchTable(this, 'unregisteredUserTable')"
+  <div class='col-sm-8 col-md-8 col-lg-5 col-xl-5  offset-lg-1 offset-xl-1'>
+    <h3>Add Balance</h3>
+    <div class='form'>
+      <label for="team_member">Team Members: </label>
+      <select id="team_member" class='form-control'>
+
+      </select>
+
+      <label for="add_balance">Deposit</label>
+      <input id="deposit_money" type="number" min=0 class='form-control'>
+
+      <button class="btn btn-block btn-primary" onclick="depositMoney()" style='margin-top: 20px'>Deposit</button>
+    </div>
+  </div>
+
+  <div class='col-sm-4 col-md-4 col-lg-5 col-xl-5'>
+    <h3>Recent Actions</h3>
+    <table class="table table-borderless table-striped table-hover" >
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>Name</th>
+          <th>Transaction</th>
+        </tr>
+      </thead>
+
+      <tbody id='recentActions'>
+
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<div class='row' style='margin-top: 30px'>
+  <div class='col-sm-12 col-md-12 col-lg-5 col-xl-5 offset-lg-1 offset-xl-1'>
+    <h3>Manage Employee</h3>
+    <div class='input-group mb-3'>
+      <button class='btn btn-success' onclick="addUserToTeam()">Add Users to Team</button>
+      <input type="text" placeholder="Search..." class="form-control" onkeyup="searchTable(this, 'unregisteredUserTable')"
       id="search-bar">
-    <table class="table table-borderless table-striped table-hover table-responsive w-100 d-block">
+    </div>
+    
+    <table class="table table-borderless table-striped table-hover">
       <thead>
         <tr>
           <th>
-            <input type="checkbox" onclick="selectAll(this)" id="unregistered-user-select-all">
-            Select All
+            Select
           </th>
           <th>Name</th>
           <th>Email</th>
@@ -68,16 +75,18 @@
     </table>
   </div>
 
-  <div class='col'>
-    <button class='btn btn-danger' onclick="removeUserFromTeam()">Remove from Team</button>
-    <input type="text" placeholder="Search..." class="form-control" onkeyup="searchTable(this, 'teamUserTable')"
+  <div class='col-sm-12 col-md-12 col-lg-5 col-xl-5'>
+    <div class='input-group mb-3' style='margin-top: 40px'>
+      <button class='btn btn-danger' onclick="removeUserFromTeam()">Remove from Team</button>
+      <input type="text" placeholder="Search..." class="form-control" onkeyup="searchTable(this, 'teamUserTable')"
       id="search-bar">
-    <table class="table table-borderless table-striped table-hover table-responsive w-100 d-block">
+    </div>
+    
+    <table class="table table-borderless table-striped table-hover">
       <thead>
         <tr>
           <th>
-            <input type="checkbox" onclick="selectAll(this)" id="team-user-select-all">
-            Select All
+            Select
           </th>
           <th>Name</th>
           <th>Balance</th>
@@ -88,17 +97,17 @@
       <tbody id="teamUserTable"></tbody>
     </table>
   </div>
-
 </div>
 
 {{ unregistered_users|json_script:"unregistered_users"}}
 {{ team_users|json_script:"team_users"}}
+{{ recent_transactions|json_script:"recent_transactions"}}
 
 {% endblock %}
 
 {% block javascript %}
     {% load static %}
-    <script src="{% static 'project_specific/js/commonFunc.js'%}"></script>
+    <script src="{% static 'project_specific/js/commonFunc.js'%}"></script>   
     <script src="{% static 'project_specific/js/manager_people.js'%}"></script>
     
 	

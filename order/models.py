@@ -24,9 +24,11 @@ class Order(models.Model):
     ordered = models.BooleanField(default=False)
     order_failed_reason = models.CharField(max_length=100)
 
-    def json_format(self):
-        timezone = Organization.objects.all()[0].timezone # only one can exist
-        timezone = pytz.timezone(str(timezone))
+    def json_format(self, timezone=None):
+        if not timezone:
+            timezone = Organization.objects.all()[0].timezone  # only one can exist
+            timezone = pytz.timezone(str(timezone))
+
         return {'customer': str(self.customer),
                 'meal': self.meal.name,
                 'vendor': self.meal.vendor.name,
@@ -40,15 +42,18 @@ class Order(models.Model):
 
     @staticmethod
     def order_summary(team):
+        timezone = Organization.objects.all()[0].timezone  # only one can exist
+        timezone = pytz.timezone(str(timezone))
+
         today = Organization.get_today_start_utc()
         unordered = Order.objects.filter(team=team,
                                          timestamp__gte=today,
                                          ordered=False)
-        unordered_json = [u.json_format() for u in unordered]
+        unordered_json = [u.json_format(timezone) for u in unordered]
 
         all_orders = Order.objects.filter(team=team,
                                          timestamp__gte=today)
-        all_orders_json = [o.json_format() for o in all_orders]
+        all_orders_json = [o.json_format(timezone) for o in all_orders]
 
         if len(unordered_json):
             unordered_df = pd.DataFrame(unordered_json)
@@ -87,17 +92,23 @@ class Order(models.Model):
     @staticmethod
     def get_order_history(user, days=30):
         # gets past ordered history
+        timezone = Organization.objects.all()[0].timezone  # only one can exist
+        timezone = pytz.timezone(str(timezone))
+
         today = Organization.get_today_start_utc()
         cutoff = today - datetime.timedelta(days=days)
         order_history = Order.objects.filter(customer__user=user,
                                              timestamp__gte=cutoff,
                                              ordered=True)
-        order_list = [order.json_format() for order in order_history]
+        order_list = [order.json_format(timezone) for order in order_history]
         return order_list
 
     @staticmethod
     def get_team_history(team, start_date, end_date):
         """only executor of the team will call this function to get the team's history"""
+        timezone = Organization.objects.all()[0].timezone  # only one can exist
+        timezone = pytz.timezone(str(timezone))
+
         start_date = parse(start_date)
         if end_date == "":
             end_date = datetime.datetime.now() + datetime.timedelta(days=1)
@@ -110,17 +121,19 @@ class Order(models.Model):
 
         order_history = Order.objects.filter(team=team,
                                              timestamp__gte=start_utc).filter(timestamp__lte=end_utc)
-        order_list = [o.json_format() for o in order_history]
+        order_list = [o.json_format(timezone) for o in order_history]
         return order_list
 
     @staticmethod
     def get_active_order(user):
+        timezone = Organization.objects.all()[0].timezone  # only one can exist
+        timezone = pytz.timezone(str(timezone))
         # get active order for today
         cutoff = Organization.get_today_start_utc()
         active_order = Order.objects.filter(customer__user=user,
                                             timestamp__gte=cutoff,
                                             ordered=False)
-        order_list = [order.json_format() for order in active_order]
+        order_list = [order.json_format(timezone) for order in active_order]
         return order_list
 
     @staticmethod

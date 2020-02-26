@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseRedirect, HttpResponse
-from people.models import Employee
+from people.models import Employee, Transaction
 from order.models import Order
 from vendor.models import Meal, Vendor
 import json
 from user.models import CustomUser
 import datetime
 import csv
+
 
 @login_required
 def main_view(request):
@@ -28,7 +29,7 @@ def employee_view(request):
     if request.method == 'GET':
         try:
             current_employee = Employee.objects.get(user=current_user)
-            context = current_employee.get_stats()
+            context = current_employee.json_format()
             context['order_history'] = Order.get_order_history(current_user)
             context['active_order'] = Order.get_active_order(current_user)
 
@@ -45,7 +46,10 @@ def employee_view(request):
         except Employee.DoesNotExist:
             context = {'error': 'Please have your manager to register you as Employee'}
 
-        return render(request, 'project_specific/employee.html', context=context)
+        if current_user.team.executor == current_user:
+            return render(request, 'project_specific/manager_employee.html', context=context)
+        else:
+            return render(request, 'project_specific/employee.html', context=context)
     elif request.method == 'POST':
         str_data = request.body
         str_data = str_data.decode('utf-8')
@@ -60,6 +64,58 @@ def employee_view(request):
             ordered_meal = Order.add_order(current_user, json_data['meal_pk'], json_data['notes'])
             ordered_meal = ordered_meal.json_format()
             return HttpResponse(json.dumps(ordered_meal), content_type='application/json')
+        elif json_data['action'] == 'cancel_order':
+            orders_pk = json_data['orders_pk']
+
+            for pk in orders_pk:
+                try:
+                    order = Order.objects.get(pk=pk)
+                    if not order.ordered:
+                        order.delete()
+                except Order.DoesNotExist:
+                    pass
+            return HttpResponse(json.dumps({"status": "success"}), content_type='application/json')
+
+
+@login_required
+def employee_history_view(request):
+    current_user = request.user
+    if request.method == 'GET':
+        employee = Employee.get_employee(current_user.pk)
+        response = {'transaction_history': None,
+                    'order_history': None}
+        if employee:
+            transaction_history = employee.get_transaction_history()
+            order_history = Order.get_order_history(current_user)
+            response['transaction_history'] = transaction_history
+            response['order_history'] = order_history
+        if current_user.team.executor == current_user:
+            return render(request, 'project_specific/manager_history.html', context=response)
+        else:
+            return render(request, 'project_specific/employee_history.html', context=response)
+
+
+@login_required
+def employee_transaction_history_download_view(request, start_date, end_date):
+    current_user = request.user
+    response = HttpResponse(content_type='text/csv')
+    if end_date == "":
+        end_date_str = datetime.datetime.now() + datetime.timedelta(days=1)
+        end_date_str = str(end_date_str.date())
+    else:
+        end_date_str = end_date
+    filename = "{}_{}_transactions.csv".format(start_date, end_date_str)
+    response['Content-Disposition'] = 'attachment; filename={}'.format(filename)
+
+    employee = Employee.get_employee(current_user.pk)
+    transaction_history = employee.get_transaction_history(start_date=start_date,
+                                                           end_date=end_date)
+    writer = csv.writer(response, )
+    title = ['timestamp', 'transaction_amount', 'balance_after']
+    writer.writerow(title)
+    for transaction in transaction_history:
+        writer.writerow([transaction[t] for t in title])
+    return response
 
 
 @user_passes_test(lambda u: u.team.executor == u)
@@ -93,8 +149,13 @@ def manager_people_view(request):
         team_users = Employee.objects.filter(user__team=current_user.team)
         team_users = [t.json_format() for t in team_users]
 
+        recent_transactions = Transaction.objects.filter(
+            employee__user__team__executor=current_user).order_by('-timestamp')[:10]
+        recent_transactions = [r.json_format() for r in recent_transactions]
+
         context = {'unregistered_users': unregistered_users,
-                   'team_users': team_users}
+                   'team_users': team_users,
+                   'recent_transactions': recent_transactions}
         return render(request, 'project_specific/manager_people.html', context=context)
     elif request.method == 'POST':
         str_data = request.body
@@ -105,20 +166,46 @@ def manager_people_view(request):
             remove_members_pk = json_data['user_pk']
 
             for pk in remove_members_pk:
-                user = CustomUser.objects.get(pk=pk)
-                user.team = None
-                user.save()
+                try:
+                    user = CustomUser.objects.get(pk=pk)
+                    user.team = None
+                    user.save()
+                except CustomUser.DoesNotExist:
+                    pass
 
             return HttpResponse(json.dumps({'status': 'success'}), content_type='application/json')
         elif json_data['action'] == 'add_user_to_team':
             add_members_pk = json_data['user_pk']
-
+            error = []
             for pk in add_members_pk:
-                user = CustomUser.objects.get(pk=pk)
-                user.team = current_user.team
-                user.save()
+                try:
+                    user = CustomUser.objects.get(pk=pk)
+                    user.team = current_user.team
+                    user.save()
+                except CustomUser.DoesNotExist:
+                    error.append('user PK {} does not exist')
+            status = not bool(len(error))
+            response = {'status': status,
+                        'error': error}
+            return HttpResponse(json.dumps(response), content_type='application/json')
+        elif json_data['action'] == 'deposit_money':
+            amount = float(json_data['amount'])
+            employee = Employee.get_employee(json_data['user_pk'])
 
-            return HttpResponse(json.dumps({'status': 'success'}), content_type='application/json')
+            recent_transactions = Transaction.objects.filter(
+                employee__user__team__executor=current_user).order_by('-timestamp')[:10]
+            recent_transactions = [r.json_format() for r in recent_transactions]
+
+            response = {'status': True,
+                        'error': '',
+                        'recent_transactions': recent_transactions}
+            if employee:
+                employee.deposit(amount)
+            else:
+                # did not find employee
+                response['status'] = False
+                response['error'] = 'Could not find employee'
+            return HttpResponse(json.dumps(response), content_type='application/json')
 
 
 @user_passes_test(lambda u: u.team.executor == u)
@@ -142,4 +229,3 @@ def manager_download_view(request, start_date, end_date):
     for order in order_history:
         writer.writerow([order[t] for t in title])
     return response
-
