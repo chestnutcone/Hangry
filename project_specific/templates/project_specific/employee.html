@@ -1,36 +1,12 @@
-{% extends "project_specific/base_generic.html" %}
+{% extends "project_specific/employee_base.html" %}
 
 
 {% block title %}
 {% load static %}
-<!-- <link rel='stylesheet' type='text/css' href="{% static 'project_specific/css/base.css'%}"> -->
-<title>Profile</title>
+
+<title>Hangry</title>
 {% endblock %}
 
-{% block sidebar %}	
-{% endblock %}
-
-{% block navbar %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/main/">Hangry</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="/main/employee/history">History<span class="sr-only">(current)</span></a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="/users/logout">Logout<span class="sr-only">(current)</span></a>
-        </li>
-      </ul>
-
-    </div>
-  </nav>
-{% endblock %}
 
 {% block content %}
 {% if messages %}

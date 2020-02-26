@@ -1,0 +1,40 @@
+{% extends "project_specific/manager_base.html" %}
+
+
+{% block title %}
+{% load static %}
+
+<title>Hangry</title>
+{% endblock %}
+
+
+{% block content %}
+{% if messages %}
+
+	{% for message in messages %}
+	<script>alert('{{ message }}')</script>
+
+    {% endfor %}
+
+{% endif %}
+
+{% if error %}
+	<div class="alert alert-danger">
+		<strong>{{ error|escape }}</strong>
+	</div>
+{% endif %}
+
+<div class='row' style='margin-top: 30px'>
+    <div class='col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 offset-sm-1 offset-md-1 offset-lg-1 offset-xl-1'>
+        <a href="/users/change_password">Change Password</a>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block javascript %}
+    {% load static %}   
+	
+{% endblock %}

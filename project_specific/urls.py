@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [path('', views.main_view, name='main'),
+               path('setting/', views.setting_view, name='setting'),
                path('employee/', views.employee_view, name='employee'),
                path('employee/history', views.employee_history_view, name='employee_history'),
                path('employee/export_transaction_history/<str:start_date>/<str:end_date>/',

@@ -22,6 +22,14 @@ def main_view(request):
             else:
                 return HttpResponseRedirect('employee/')
 
+@login_required
+def setting_view(request):
+    current_user = request.user
+    if request.method == 'GET':
+        if current_user.team.executor == current_user:
+            return render(request, 'project_specific/manager_setting.html')
+        else:
+            return render(request, 'project_specific/employee_setting.html')
 
 @login_required
 def employee_view(request):

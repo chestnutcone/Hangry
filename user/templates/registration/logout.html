@@ -5,6 +5,9 @@
 <link rel='stylesheet' type='text/css' href="{% static 'user/css/logout.css'%}">
 {% endblock %}
 
+{% block title %}
+<title>Hangry</title>
+{% endblock %}
 
 {% block content %}
 {% if form.errors %}
@@ -39,6 +42,5 @@
 
 {% block javascript %}
 	{% load static %}
-	<script src="{% static 'user/js/login.js'%}"></script>
 	
 {% endblock %}

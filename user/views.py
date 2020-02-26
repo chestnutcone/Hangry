@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from django.contrib.auth import login, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, update_session_auth_hash
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from user.models import CustomUser
@@ -51,3 +52,18 @@ def logout_view(request):
     if request.method == 'GET':
         logout(request)
         return render(request, 'registration/logout.html')
+
+@login_required
+def change_password_view(request):
+    current_user = request.user
+    if request.method == 'GET':
+        return render(request, 'registration/change_password.html')
+    elif request.method == 'POST':
+        form = PasswordChangeForm(current_user, request.POST)
+
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('main')
+
+        return render(request, 'registration/change_password.html', {'form': form})
