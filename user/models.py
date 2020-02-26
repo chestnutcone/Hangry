@@ -10,6 +10,11 @@ class CustomUser(AbstractUser):
                              null=True,
                              )
 
+    def json_format(self):
+        return {'name': str(self),
+                'email': self.username,
+                'pk': str(self.pk)}
+
     def __str__(self):
         return self.first_name + ' ' + self.last_name
 

@@ -1,0 +1,44 @@
+{% extends 'registration/base_generic.html' %}
+
+{% block static %}
+{% load static %}
+<link rel='stylesheet' type='text/css' href="{% static 'user/css/logout.css'%}">
+{% endblock %}
+
+
+{% block content %}
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+<div id='form-container' class='container'>
+    <div class='row'>
+        <div class='col' id='logout'>
+            <h3>You are now logged out</h3>
+            <p>Click <a href="/users/login">here</a> to return to login.</p>
+            <p>Click <a href="/">here</a> to return to the main page.</p>
+        </div>
+    </div>
+
+  
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+	{% load static %}
+	<script src="{% static 'user/js/login.js'%}"></script>
+	
+{% endblock %}

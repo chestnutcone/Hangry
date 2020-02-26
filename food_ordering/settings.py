@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'vendor.apps.VendorConfig',
     'order.apps.OrderConfig',
     'project_specific.apps.ProjectSpecificConfig',
+    'organization.apps.OrganizationConfig',
 ]
 
 MIDDLEWARE = [

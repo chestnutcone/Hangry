@@ -17,7 +17,7 @@ function populateActiveOrders() {
         let meal = document.createElement('td')
         let price = document.createElement('td')
 
-        timestamp.innerText = element['timestamp']
+        timestamp.innerText = formatTimestamp(element['timestamp'])
         vendor.innerText = element['vendor']
         meal.innerText = element['meal']
         price.innerText = element['price']
@@ -71,8 +71,27 @@ function populateMeal() {
     });
 }
 
-function searchTable(param, access_id) {
 
+function orderMeal() {
+    let selected_meal_pk = $("#meal :selected").val();
+    let notes = $("#additional-notes").val();
+    let send_data = JSON.stringify({'meal_pk': selected_meal_pk,
+    'notes':notes,
+'action':'order_meal'});
+    let csrftoken = getCookie('csrftoken');
+    $.ajax({
+        type: "POST",
+        data: send_data,
+        headers: {
+            'X-CSRFToken': csrftoken
+        },
+        dataType: 'json',
+        success: function(ordered_meal) {
+            console.log(ordered_meal);
+            location.reload();
+        },
+        contentType:'application/json'
+    });
 }
 
 function taskActionButton() {

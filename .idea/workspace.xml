@@ -2,21 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de227b92-f357-4ec0-9514-c75908185519" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/food_ordering.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/food_ordering.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/food_ordering/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_ordering/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/food_ordering/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_ordering/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/food_ordering/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_ordering/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/order/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/order/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/people/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/people/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/people/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/people/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_specific/templates/project_specific/base_generic.html" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/templates/project_specific/base_generic.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_specific/static/project_specific/js/commonFunc.js" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/static/project_specific/js/commonFunc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_specific/static/project_specific/js/employee.js" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/static/project_specific/js/employee.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_specific/templates/project_specific/employee.html" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/templates/project_specific/employee.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_specific/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_specific/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/models.py" afterDir="false" />
     </list>
@@ -41,6 +40,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">

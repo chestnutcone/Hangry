@@ -4,6 +4,14 @@ function selectAll(param){
     })
 }
 
+function searchTable(param, access_id) {
+    let text = $(param).val().toLowerCase()
+    $(`#${access_id} tr`).filter(
+        function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(text) > -1)
+    })
+}
+
 function getCookie (name) {
     let cookieValue = null
     if (document.cookie && document.cookie !== '') {
@@ -17,4 +25,8 @@ function getCookie (name) {
         }
     }
     return cookieValue
+}
+
+function formatTimestamp(timestamp) {
+    return timestamp.slice(0,16)
 }

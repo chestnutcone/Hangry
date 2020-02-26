@@ -1,0 +1,105 @@
+{% extends "project_specific/base_generic.html" %}
+
+
+{% block title %}
+{% load static %}
+<!-- <link rel='stylesheet' type='text/css' href="{% static 'project_specific/css/manager.css'%}"> -->
+<title>Profile</title>
+{% endblock %}
+
+{% block sidebar %}	
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/main/">Hangry</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/main/manager/people">People<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/logout">Logout<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+
+	{% for message in messages %}
+	<script>alert('{{ message }}')</script>
+
+    {% endfor %}
+
+{% endif %}
+
+{% if error %}
+	<div class="alert alert-danger">
+		<strong>{{ error|escape }}</strong>
+	</div>
+{% endif %}
+
+<div class='row' style='margin-top: 30px'>
+  <div class='col'>
+    <button class='btn btn-success' onclick="addUserToTeam()">Add Users to Team</button>
+    <input type="text" placeholder="Search..." class="form-control" onkeyup="searchTable(this, 'unregisteredUserTable')"
+      id="search-bar">
+    <table class="table table-borderless table-striped table-hover table-responsive w-100 d-block">
+      <thead>
+        <tr>
+          <th>
+            <input type="checkbox" onclick="selectAll(this)" id="unregistered-user-select-all">
+            Select All
+          </th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+  
+      <tbody id="unregisteredUserTable"></tbody>
+    </table>
+  </div>
+
+  <div class='col'>
+    <button class='btn btn-danger' onclick="removeUserFromTeam()">Remove from Team</button>
+    <input type="text" placeholder="Search..." class="form-control" onkeyup="searchTable(this, 'teamUserTable')"
+      id="search-bar">
+    <table class="table table-borderless table-striped table-hover table-responsive w-100 d-block">
+      <thead>
+        <tr>
+          <th>
+            <input type="checkbox" onclick="selectAll(this)" id="team-user-select-all">
+            Select All
+          </th>
+          <th>Name</th>
+          <th>Balance</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+  
+      <tbody id="teamUserTable"></tbody>
+    </table>
+  </div>
+
+</div>
+
+{{ unregistered_users|json_script:"unregistered_users"}}
+{{ team_users|json_script:"team_users"}}
+
+{% endblock %}
+
+{% block javascript %}
+    {% load static %}
+    <script src="{% static 'project_specific/js/commonFunc.js'%}"></script>
+    <script src="{% static 'project_specific/js/manager_people.js'%}"></script>
+    
+	
+{% endblock %}

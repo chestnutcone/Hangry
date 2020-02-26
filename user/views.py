@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from user.models import CustomUser
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -43,3 +44,10 @@ def login_view(request):
     elif request.method == 'GET':
         form = AuthenticationForm()
         return render(request, 'registration/login.html', {'form': form})
+
+
+@login_required
+def logout_view(request):
+    if request.method == 'GET':
+        logout(request)
+        return render(request, 'registration/logout.html')
