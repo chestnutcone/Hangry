@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,MAAO;EACH,WAAW,EAAE,GAAG;;AAGpB,oBAAqB;EACjB,WAAW,EAAE,IAAI",
+"sources": ["manager.scss"],
+"names": [],
+"file": "manager.css"
+}
