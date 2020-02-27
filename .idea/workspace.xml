@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de227b92-f357-4ec0-9514-c75908185519" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/enter_meal_info.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/first.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/food_ordering/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_ordering/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/food_ordering/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_ordering/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/food_ordering/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fourth.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_specific/templates/project_specific/base_generic.html" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/templates/project_specific/base_generic.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_specific/templates/project_specific/manager_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/templates/project_specific/manager_base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_specific/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/second.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/third.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/user/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
