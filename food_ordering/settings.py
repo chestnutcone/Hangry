@@ -25,7 +25,7 @@ SECRET_KEY = '#=^v#v)1pu9*51*7#zvf@_or_qb)n$ato-vjkravs8613hp(ih'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -119,6 +119,18 @@ USE_L10N = True
 
 USE_TZ = True
 
+with open('email_info.txt', 'r') as f:
+    email = f.readline().strip()
+    email_password = f.readline().strip()
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # During development only
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = email
+EMAIL_HOST_PASSWORD = email_password
+
+LOGIN_URL = "/users/login"
 
 AUTH_USER_MODEL = 'user.CustomUser'
 # Static files (CSS, JavaScript, Images)

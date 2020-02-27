@@ -1,0 +1,131 @@
+{% extends 'project_specific/base_generic.html' %}
+
+{% block static %}
+{% load static %}
+<link rel='stylesheet' type='text/css' href="{% static 'project_specific/css/index.css'%}">
+{% endblock %}
+
+{% block title %}
+<title>Hangry</title>
+{% endblock %}
+
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/main/">Hangry</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+      </ul>
+	  
+    <ul class='nav navbar-nav ml-auth'>
+      <li class="nav-item">
+        <a class="nav-link" href="/users/login">Login<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+
+    </div>
+  </nav>
+{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+<div class='row'>
+    <div id='titleSection' class='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' >
+        <h1>Hangry</h1>
+        <p>Simplified Food Ordering</p>
+    </div>
+</div>
+
+<div class='row'>
+    <div class='col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 offset-sm-1 offset-md-1 offset-lg-1 offset-xl-1'>
+        <h4 style="margin-top: 20px;">What is Hangry?</h4>
+        <p>Hangry is a web app built with Django that solves the problem of ordering lunches in corporations. 
+            It stores information about vendors and food, allowing employees to quickly order food</p>
+    </div>
+</div>
+
+<div class='row'>
+    <div class='col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 offset-sm-1 offset-md-1 offset-lg-1 offset-xl-1'>
+        <h4>Problem Addressed</h4>
+        <p>For some companies in Asia, employees reguarly orders take-outs for lunch. There is typically a person in charge of 
+            ordering food for everyone on their team. This was a rather manual task of asking what each person wants, and keeping 
+            track of how much they owe, the total order amount, special notes, etc. Hangry stores information about vendors, food, 
+            employees, transactions, and keeps track of all these for you.
+        </p>
+        <p>
+            The executor (person in charge of ordering food) will get a clear summary of what are the total orders, how much do each 
+            employee owe, how much to pay the vendors, the meals breakdown. All orders can be queried and downloaded for record keeping. 
+            In addition, employees can keep track of their balance and spending, download their past transactions, and order food online. 
+        </p>
+    </div>
+</div>
+
+<div class='row'>
+    <div class='col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 offset-sm-1 offset-md-1 offset-lg-1 offset-xl-1'>
+        <h4>How it works</h4>
+        <p>There are three levels of users</p>
+        <ul>
+            <li>Superuser</li>
+            <li>Executor</li>
+            <li>Employee</li>
+        </ul>
+
+        <h6>Superuser</h6>
+        <p>
+            As the name implies, superuser can do everything. Some of the common actions include: adding new meals and vendors
+             to the database, creating teams, assigning an executor to the team, changing timezone of organization, manage all users, etc.
+        </p>
+
+        <h6>Executor</h6>
+        <p>
+            Executor is an employee in charge of collecting the orders and ordering the food. In addition to being an employee, 
+            they get a summary of all orders from the team, vendor information, and makes sure all orders are carried out. They 
+            also have the power to add/remove people to the team, add balance to an empoyee, download all order histories of the team,
+        </p>
+
+        <h6>Employee</h6>
+        <p>
+            Employee can order food, see their active orders (food not ordered yet), see their past balance history, download their 
+            transaction histories. Employee needs to be a part of team to have these features. In order to be a part of team, executor 
+            of the group have to add them in. 
+        </p>
+
+        <h4>Orders of Operation</h4>
+        <ol>
+            <li>Sign up for an account using your email</li>
+            <li>Ask your team's executor to add you into the team
+                <ul>
+                    <li>If you are an executor, ask the superuser to create a team for you, assign you to the team's executor, 
+                        and assign your team to your team (the one you are in charge of). 
+                    </li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+	{% load static %}
+	
+{% endblock %}

@@ -28,6 +28,7 @@ def signup_view(request):
                                                              first_name=first_name,
                                                              last_name=last_name,
                                                              password=password,
+                                                             email=email
                                                              )
             return redirect('/users/login')
         else:

@@ -42,7 +42,7 @@ def employee_view(request):
             context['active_order'] = Order.get_active_order(current_user)
 
             team = current_user.team
-            if team is not None:
+            if team:
                 vendors = team.vendors
                 context['vendors'] = [v.json_format() for v in vendors.all()]
                 context['error'] = ''
@@ -54,7 +54,7 @@ def employee_view(request):
         except Employee.DoesNotExist:
             context = {'error': 'Please have your manager to register you as Employee'}
 
-        if current_user.team.executor == current_user:
+        if current_user.team and current_user.team.executor == current_user:
             return render(request, 'project_specific/manager_employee.html', context=context)
         else:
             return render(request, 'project_specific/employee.html', context=context)
