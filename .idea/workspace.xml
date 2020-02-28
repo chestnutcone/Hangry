@@ -2,26 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de227b92-f357-4ec0-9514-c75908185519" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/order/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order/tests/test_models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/organization/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/organization/tests/test_models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/people/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/people/tests/test_models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/food_ordering/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_ordering/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/order/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/organization/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/organization/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/organization/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/people/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/people/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/people/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_specific/static/project_specific/js/employee_history.js" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/static/project_specific/js/employee_history.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_specific/templates/base_generic.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_specific/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/project_specific/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/models.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
