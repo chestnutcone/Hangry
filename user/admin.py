@@ -11,6 +11,9 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
 
     list_display = ('team', 'first_name', 'last_name', 'email')
+    fieldsets = (
+        (None, {'fields': ('team',)}),
+    )
 
 
 class TeamAdmin(admin.ModelAdmin):

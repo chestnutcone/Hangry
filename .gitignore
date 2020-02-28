@@ -1,5 +1,6 @@
 email_info.txt
 secret_key.txt
+account_info_on_heroku.txt
 meals_info.csv
 vendor.csv
 .idea
