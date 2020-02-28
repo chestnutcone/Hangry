@@ -37,12 +37,20 @@ function downloadPastTransactionHistory() {
             let ms = new Date(). getTime() + 86400000;
             endDate = parseDate(new Date(ms));
         }
+        if (startDate > endDate) {
+          // swap around if it is different
+          let intermediate_start = startDate
+          startDate = endDate
+          endDate = intermediate_start
+        }
         window.open(`/main/employee/export_transaction_history/${startDate}/${endDate}/`)
     }
 }
 
+if (transaction_history) {
+  drawTransactionHistory();
+}
 
-drawTransactionHistory();
 // var data = {
 // // A labels array that can contain any sort of values
 // labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],

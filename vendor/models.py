@@ -32,5 +32,14 @@ class Meal(models.Model):
                 'price': str(self.price),
                 'pk': self.pk}
 
+    @staticmethod
+    def get_vendor_meals(vendor_pk):
+        if vendor_pk:
+            vendor = Vendor.objects.get(pk=int(vendor_pk))
+            meals = Meal.objects.filter(vendor=vendor)
+            meals = [m.json_format() for m in meals]
+            return meals
+        return []
+
     def __str__(self):
         return self.vendor.name+" "+self.name

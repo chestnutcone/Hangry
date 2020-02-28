@@ -64,13 +64,11 @@ def employee_view(request):
         json_data = json.loads(str_data)
 
         if json_data['action'] == 'request_meal':
-            vendor = Vendor.objects.get(pk=int(json_data['vendor_pk']))
-            meals = Meal.objects.filter(vendor=vendor)
-            meals = [m.json_format() for m in meals]
+            meals = Meal.get_vendor_meals(json_data.get('vendor_pk'))
+
             return HttpResponse(json.dumps(meals), content_type='application/json')
         elif json_data['action'] == 'order_meal':
-            ordered_meal = Order.add_order(current_user, json_data['meal_pk'], json_data['notes'])
-            ordered_meal = ordered_meal.json_format()
+            ordered_meal = Order.add_order(current_user, json_data.get('meal_pk'), json_data.get('notes'))
             return HttpResponse(json.dumps(ordered_meal), content_type='application/json')
         elif json_data['action'] == 'cancel_order':
             orders_pk = json_data['orders_pk']
@@ -97,7 +95,7 @@ def employee_history_view(request):
             order_history = Order.get_order_history(current_user)
             response['transaction_history'] = transaction_history
             response['order_history'] = order_history
-        if current_user.team.executor == current_user:
+        if current_user.team and current_user.team.executor == current_user:
             return render(request, 'project_specific/manager_history.html', context=response)
         else:
             return render(request, 'project_specific/employee_history.html', context=response)
@@ -116,14 +114,18 @@ def employee_transaction_history_download_view(request, start_date, end_date):
     response['Content-Disposition'] = 'attachment; filename={}'.format(filename)
 
     employee = Employee.get_employee(current_user.pk)
-    transaction_history = employee.get_transaction_history(start_date=start_date,
-                                                           end_date=end_date)
-    writer = csv.writer(response, )
-    title = ['timestamp', 'transaction_amount', 'balance_after']
-    writer.writerow(title)
-    for transaction in transaction_history:
-        writer.writerow([transaction[t] for t in title])
-    return response
+    if employee:
+        transaction_history = employee.get_transaction_history(start_date=start_date,
+                                                               end_date=end_date)
+        writer = csv.writer(response, )
+        title = ['timestamp', 'transaction_amount', 'balance_after']
+        writer.writerow(title)
+        for transaction in transaction_history:
+            writer.writerow([transaction[t] for t in title])
+        return response
+    else:
+        context = {'error': 'Please have your manager to register you as Employee. No downloads available'}
+        return render(request, 'project_specific/employee_history_download_error.html', context=context)
 
 
 @user_passes_test(lambda u: u.team.executor == u)

@@ -42,8 +42,7 @@ class Order(models.Model):
 
     @staticmethod
     def order_summary(team):
-        timezone = Organization.objects.all()[0].timezone  # only one can exist
-        timezone = pytz.timezone(str(timezone))
+        timezone = Organization.get_organization_timezone()
 
         today = Organization.get_today_start_utc()
         unordered = Order.objects.filter(team=team,
@@ -81,19 +80,24 @@ class Order(models.Model):
 
     @staticmethod
     def add_order(user, meal_pk, notes):
-        current_employee = Employee.objects.get(user=user)
-        ordered_meal = Order(customer=current_employee,
-                             team=user.team,
-                             meal=Meal.objects.get(pk=meal_pk),
-                             notes=notes)
-        ordered_meal.save()
-        return ordered_meal
+        if meal_pk and notes:
+            meal_pk = int(meal_pk)
+            try:
+                current_employee = Employee.objects.get(user=user)
+                ordered_meal = Order(customer=current_employee,
+                                     team=user.team,
+                                     meal=Meal.objects.get(pk=meal_pk),
+                                     notes=notes)
+                ordered_meal.save()
+                return ordered_meal
+            except Employee.DoesNotExist:
+                pass
+        return []
 
     @staticmethod
     def get_order_history(user, days=30):
         # gets past ordered history
-        timezone = Organization.objects.all()[0].timezone  # only one can exist
-        timezone = pytz.timezone(str(timezone))
+        timezone = Organization.get_organization_timezone()
 
         today = Organization.get_today_start_utc()
         cutoff = today - datetime.timedelta(days=days)
@@ -106,8 +110,7 @@ class Order(models.Model):
     @staticmethod
     def get_team_history(team, start_date, end_date):
         """only executor of the team will call this function to get the team's history"""
-        timezone = Organization.objects.all()[0].timezone  # only one can exist
-        timezone = pytz.timezone(str(timezone))
+        timezone = Organization.get_organization_timezone()
 
         start_date = parse(start_date)
         if end_date == "":
@@ -126,8 +129,7 @@ class Order(models.Model):
 
     @staticmethod
     def get_active_order(user):
-        timezone = Organization.objects.all()[0].timezone  # only one can exist
-        timezone = pytz.timezone(str(timezone))
+        timezone = Organization.get_organization_timezone()
         # get active order for today
         cutoff = Organization.get_today_start_utc()
         active_order = Order.objects.filter(customer__user=user,

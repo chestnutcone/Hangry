@@ -124,9 +124,9 @@ function addUserToTeam() {
 function depositMoney() {
     let member_pk = $("#team_member :selected").val();
     let deposit = $("#deposit_money").val();
-
-    if (deposit < 0 || deposit == "") {
-        alert('cannot deposit negative or empty or invalid amount')
+    
+    if (deposit < 0 || deposit == "" || member_pk == null) {
+        alert('Cannot deposit negative or empty or invalid amount or empty team member')
     } else {
         let send_data = JSON.stringify({'user_pk':member_pk,
         'amount': deposit, 'action':'deposit_money'});

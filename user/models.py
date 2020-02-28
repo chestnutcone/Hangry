@@ -8,7 +8,7 @@ class CustomUser(AbstractUser):
     team = models.ForeignKey("Team",
                              on_delete=models.SET_NULL,
                              null=True,
-                             )
+                             blank=True)
 
     def json_format(self):
         return {'name': str(self),

@@ -69,8 +69,7 @@ class Transaction(models.Model):
 
     def json_format(self, timezone=None):
         if not timezone:
-            timezone = Organization.objects.all()[0].timezone  # only one can exist
-            timezone = pytz.timezone(str(timezone))
+            timezone = Organization.get_organization_timezone()
         return {'name': str(self.employee.user),
                 'transaction_amount': self.transaction_amount,
                 'balance_after': self.balance_after,
@@ -85,8 +84,7 @@ class Transaction(models.Model):
                                                              timestamp__lte=end_date)
         else:
             transaction_history = Transaction.objects.filter(employee=employee)
-        timezone = Organization.objects.all()[0].timezone  # only one can exist
-        timezone = pytz.timezone(str(timezone))
+        timezone = Organization.get_organization_timezone()
         transaction_history = [h.json_format(timezone) for h in transaction_history]
         return transaction_history
 
