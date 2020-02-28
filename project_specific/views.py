@@ -190,6 +190,8 @@ def manager_people_view(request):
                     user = CustomUser.objects.get(pk=pk)
                     user.team = current_user.team
                     user.save()
+
+                    employee = Employee.objects.get_or_create(user=user)
                 except CustomUser.DoesNotExist:
                     error.append('user PK {} does not exist')
             status = not bool(len(error))
