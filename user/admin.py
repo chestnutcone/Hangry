@@ -10,7 +10,7 @@ class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     model = CustomUser
 
-    list_display = ('first_name', 'last_name', 'email', 'team')
+    list_display = ('team', 'first_name', 'last_name', 'email')
 
 
 class TeamAdmin(admin.ModelAdmin):

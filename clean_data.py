@@ -6,32 +6,35 @@ Created on Wed Feb 26 11:41:36 2020
 """
 
 import pandas as pd
-
-fname = 'fourth.csv'
-
-df = pd.read_csv(fname)
-df['Price'] = df['Price'].map(lambda x: x.split("$")[1])
-df['Vendor'] = df['Vendor'].map(lambda x: x.strip())
-df.to_csv(fname)
-
 import os, django
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "food_ordering.settings")
-django.setup()
+import pickle
+import json
 
-from vendor.models import Vendor, Meal
 
-fnames = ['first.csv', 'second.csv', 'third.csv', 'fourth.csv']
-vendors = Vendor.objects.all()
+# clean data, make it a dictionary
+vendors_info = pd.read_csv("vendor.csv")
+vendors_info.index = vendors_info['Name']
+vendors_info.drop("Name", inplace=True, axis=1)
+vendors_info = vendors_info.apply(lambda x: x.map(lambda x: x.strip()))
+vendor_dict = vendors_info.T.to_dict()
 
-os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
-for i in range(len(fnames)):
-    df = pd.read_csv(fnames[i])
-    tpl = [tuple(x) for x in df.to_numpy()]
-    vendor = vendors[i]
-    for meal, price in tpl:  
-        new_meal = Meal(name=meal,
-                        vendor=vendor,
-                        price=float(price))
-        new_meal.save()
-        
+meals_info = pd.read_csv("meal_info.csv")
+meals_info['Meal'] = meals_info['Meal'].map(lambda x: x.strip())
+meals_info['Name'] = meals_info['Name'].map(lambda x: x.strip())
 
+vendor_meal_dict = {}
+def add_meals_to_vendor(row):
+    obj = vendor_meal_dict.get(row[0])
+    if obj:
+        obj.append((row[1], row[2]))
+    else:
+        vendor_meal_dict[row[0]] = [(row[1], row[2])]
+    
+meals_info.apply(add_meals_to_vendor, axis=1)
+
+vendors = list(vendor_dict.keys())
+for v in vendors:
+    vendor_dict[v]['meal'] = vendor_meal_dict[v]
+    
+with open('vendor_populate.pickle', 'wb') as f:
+    pickle.dump(vendor_dict, f)

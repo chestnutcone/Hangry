@@ -7,7 +7,7 @@ class VendorAdmin(admin.ModelAdmin):
     list_display = ('name', 'tel', 'street_address')
 
 class MealAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'vendor')
+    list_display = ('vendor', 'name', 'price')
 
 
 admin.site.register(Vendor, VendorAdmin)
